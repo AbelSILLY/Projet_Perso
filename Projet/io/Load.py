@@ -14,12 +14,10 @@ path_target = "./data/weather.csv"
 path, fname = os.path.split(path_target)
 pooch.retrieve(url, path=path, fname=fname, known_hash=None)
 #%%
-df_weather_raw=pd.read_csv("weather.csv",skiprows=[0,1,2,3,4])
+df_weather_raw=pd.read_csv("weather.csv",skiprows=[0,1,2,3,4])#data frame daily weather
+df_weather_raw.columns=["Date","Température Max","Température Min","Précipitation","Neige","Vitesse Max du vent","Direction de vent dominante"]
 df_weather_raw.head()
 # %%
-plt.plot(df_weather_raw["time"],df_weather_raw["temperature_2m_max (°C)"])
-plt.xlabel("Date")
-plt.ylabel("Température en °C")
-plt.show()
-
+df_cwweather_raw=pd.read_csv("weather.csv",skiprows=[0,1,2,5,6,7,8,9,10,11]) #data frame current weather
+df_cwweather_raw
 # %%
