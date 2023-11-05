@@ -4,3 +4,8 @@ url_db = "https://api.open-meteo.com/v1/meteofrance?latitude=43.6109&longitude=3
 path_target = os.path.join(
     os.path.dirname(os.path.realpath(__file__)), "..", "data", "weather_db.csv"
 )
+print(os.path.dirname(os.path.realpath(__file__)))
+print(__file__)
+print(path_target)
+
+
