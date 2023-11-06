@@ -3,7 +3,7 @@ import datetime
 from datetime import datetime, timedelta
 import matplotlib.pyplot as plt 
 df = Projet.Load_db().save_as_df()#data frame données météo
-#df.columns=['Date','Température Max','Température Min','Levé du soleil','Couché du soleil','Neige','Heure de pluie','Vitesse Max du vent','Direction dominante du vent']
+#df.columns=['Date','Code Météo,'Température Max','Température Min','Précipitations','Vitesse Max du vent','Direction dominante du vent']
 #ajd=datetime.today().strftime("%d %B %Y")
 #jp1=datetime.today()+timedelta(1)
 #jp1=jp1.strftime("%d %B %Y")
