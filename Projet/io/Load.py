@@ -18,8 +18,9 @@ class Load_db:
 
     def __init__(self, url=url_db, target_name=path_target):
         path, fname_compressed = os.path.split(path_target)
+        self.fname=path +"/"+fname_compressed
         pooch.retrieve(url, path=path, fname=fname_compressed, known_hash=None)
-        self.fname = self.unxz(path_target)
+   #     self.fname = self.unxz(path_target)
 
     def unxz(self, fname_compressed):
         fname_uncompressed = fname_compressed[:-3]
@@ -43,7 +44,8 @@ class Load_db:
             self.fname,
             na_values="",
             low_memory=False,
-            converters={"data": str, "heure": str},
-            encoding="latin-1"
+           # converters={"data": str, "heure": str},
+            encoding="latin-1",
+            skiprows=[0,1,2]
         )
         return df_weather
