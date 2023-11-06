@@ -21,4 +21,4 @@ fig, ax = plt.subplots(1,1)
 ax.axis("tight")
 ax.axis("off")
 ax.table(cellText=df.values, colLabels=df.columns, rowLabels=df.transpose().columns, loc="center")
-plt.show()
+plt.show()# tableau d'affichage très sommaire
