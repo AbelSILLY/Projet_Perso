@@ -29,19 +29,21 @@ df['Date'][2]=jp2
 df['Date'][3]=jp3
 df
 # %%
+df2=df.drop(columns='Date')
+df2=df2.transpose()
 df=df.transpose()
-fig = plt.figure(figsize=(10,10), dpi=300)
+fig = plt.figure(figsize=(10,5), dpi=300)
 ax = plt.subplot()
-ncols=df.shape[1]
-nrows=df.shape[0]
+ncols=df2.shape[1]
+nrows=df2.shape[0]
 
 ax.set_xlim(0, ncols + 1)
 ax.set_ylim(0, nrows)
 
 #df=df.transpose()
 
-positions = [1, 2, 3, 4]
-columns = df.columns
+positions = [0.5, 2, 3.5, 5]
+columns = df2.columns
 
 #ajout des données du tableau
 for i in range(nrows):
@@ -49,8 +51,8 @@ for i in range(nrows):
     for j, column in enumerate(columns):
         print(i)
         ax.annotate(
-            xy=(positions[j],(nrows-1)-i),
-            text=df[column].iloc[i],
+            xy=(positions[j],(nrows-1)-(i + .5)),
+            text=df2[column].iloc[i],
             ha='center',
             va='center'
         )
@@ -68,6 +70,12 @@ for index, c in enumerate(col_names):
             weight='bold'
         )
 
+ax.plot([ax.get_xlim()[0], ax.get_xlim()[1]], [nrows, nrows], lw=1.5, color='black', marker='', zorder=4)
+ax.plot([ax.get_xlim()[0], ax.get_xlim()[1]], [0, 0], lw=1.5, color='black', marker='', zorder=4)
+for x in range(1, nrows):
+    ax.plot([ax.get_xlim()[0], ax.get_xlim()[1]], [x, x], lw=1.15, color='gray', ls=':', zorder=3 , marker='')
+
 ax.set_axis_off()
 plt.show
+
 # %%
