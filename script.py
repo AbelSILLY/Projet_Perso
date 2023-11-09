@@ -6,13 +6,15 @@ import matplotlib.pyplot as plt
 import os
 import pooch
 import pandas as pd
+import json
+
 path_target=os.path.join(
     os.path.dirname(os.path.realpath(__file__)), "data", "weather_data.csv"
 )
 path, fname_compressed = os.path.split(path_target)
 url_db ='https://api.open-meteo.com/v1/meteofrance?latitude=52.52&longitude=13.41&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max&timezone=Europe%2FBerlin&format=csv'
 pooch.retrieve(url=url_db, known_hash=None,path=path,fname=fname_compressed)
-df=pd.read_csv(path +"/"+fname_compressed,skiprows=[0,1,2],converters={"time": str})
+df=pd.read_csv(path +"/"+fname_compressed,skiprows=[0,1,2],converters={"time": str, 'weather_code (wmo code)':str})
 # %%
 df
 df.columns=['Date','Code Météo','Température Max','Température Min','Précipitations','Vitesse Max du vent']
@@ -70,6 +72,7 @@ for index, c in enumerate(col_names):
             weight='bold'
         )
 
+# Ajout de lignes dans le tableau
 ax.plot([ax.get_xlim()[0], ax.get_xlim()[1]], [nrows, nrows], lw=1.5, color='black', marker='', zorder=4)
 ax.plot([ax.get_xlim()[0], ax.get_xlim()[1]], [0, 0], lw=1.5, color='black', marker='', zorder=4)
 for x in range(1, nrows):
@@ -78,4 +81,17 @@ for x in range(1, nrows):
 ax.set_axis_off()
 plt.show
 
+# %%
+path_target_im=os.path.join(
+    os.path.dirname(os.path.realpath(__file__)), "data", "im.json"
+)
+path_im, fname_compressed_im = os.path.split(path_target_im)
+url_im = "https://gist.githubusercontent.com/stellasphere/9490c195ed2b53c707087c8c2db4ec0c/raw/76b0cb0ef0bfd8a2ec988aa54e30ecd1b483495d/descriptions.json"
+pooch.retrieve(url=url_im, known_hash=None,path=path_im,fname=fname_compressed_im) #import du fichier image
+with open(path_im +"/"+fname_compressed_im) as f:
+     data = json.load(f)
+data #bibliothèque python du fichier json
+data[df2[0].iloc[0]]['day']['image'] #lien de l'image correspondant au code météo du jour "0"
+# %%
+print(df2[0].iloc[0])
 # %%
