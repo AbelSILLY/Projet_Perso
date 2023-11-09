@@ -47,9 +47,9 @@ columns = df2.columns
 
 #ajout des données du tableau
 for i in range(nrows):
-    print(i)
+#    print(i)
     for j, column in enumerate(columns):
-        print(i)
+#        print(i)
         ax.annotate(
             xy=(positions[j],(nrows-1)-(i + .5)),
             text=df2[column].iloc[i],
