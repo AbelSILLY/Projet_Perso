@@ -99,10 +99,10 @@ for index, c in enumerate(col_names):
         )
 
 # Ajout de lignes dans le tableau
-ax.plot([ax.get_xlim()[0], ax.get_xlim()[1]], [nrows, nrows], lw=2, color='black', marker='', zorder=4)
-ax.plot([ax.get_xlim()[0], ax.get_xlim()[1]], [0, 0], lw=2, color='black', marker='', zorder=4)
+ax.plot([ax.get_xlim()[0], ax.get_xlim()[1]], [nrows, nrows], lw=1.5, color='black', marker='', zorder=4)
+ax.plot([ax.get_xlim()[0], ax.get_xlim()[1]], [0, 0], lw=1.5, color='black', marker='', zorder=4)
 for x in range(1, nrows):
-    ax.plot([ax.get_xlim()[0], ax.get_xlim()[1]], [x, x], lw=2, color='gray', ls=':', zorder=3 , marker='')
+    ax.plot([ax.get_xlim()[0], ax.get_xlim()[1]], [x, x], lw=1.5, color='gray', ls=':', zorder=3 , marker='')
 
 ax.set_axis_off()
 
@@ -116,14 +116,20 @@ ax_point_2 = DC_to_NFC([2.75, 0.75])
 ax_width = abs(ax_point_1[0] - ax_point_2[0])
 ax_height = abs(ax_point_1[1] - ax_point_2[1])
 ax_coords=DC_to_NFC([1,1])
-#flag_ax=fig.add_axes([ax_coords[0],ax_coords[1],ax_width,ax_height])
-#ax_logo(flag_ax)
+
+#ax_coords=DC_to_NFC([-0.75,4.25])
+#flag_ax=fig.add_axes(
+#    [ax_coords[0],ax_coords[1],ax_width,ax_height]
+#)
+#ax_icon(data,flag_ax)
+
+
 for x in range(0,nrows-1):
-     ax_coords=DC_to_NFC([x-0.75,4.25])
+     ax_coords=DC_to_NFC([2*x-0.75,4.25])
      flag_ax=fig.add_axes(
           [ax_coords[0],ax_coords[1],ax_width,ax_height]
      )
      ax_icon(data,flag_ax)
 plt.show
-
+#faire un ajout un à un ?
 # %%
