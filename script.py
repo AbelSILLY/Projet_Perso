@@ -16,7 +16,7 @@ path_target=os.path.join(
 )
 path, fname_compressed = os.path.split(path_target)
 url_db ='https://api.open-meteo.com/v1/meteofrance?latitude=52.52&longitude=13.41&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max&timezone=Europe%2FBerlin&format=csv'
-pooch.retrieve(url=url_db, known_hash=None,path=path,fname=fname_compressed)
+pooch.retrieve(url=url_db, known_hash='169686be5d07b0aedab11e33a575d3387e5e39f7b942b7c4d3df88f179d70c3a',path=path,fname=fname_compressed)
 df=pd.read_csv(path +"/"+fname_compressed,skiprows=[0,1,2],converters={"time": str, 'weather_code (wmo code)':str})
 print(df)
 path_target_im=os.path.join(
@@ -41,6 +41,37 @@ def ax_icon(data,ax):
     ax.axis('off')
     return ax
 
+# %%
+def icon_dl(data,path,fname):
+     '''
+     Télécharge l'icone soleil de la météo
+     Args:
+        data ("json"): une bibliothèque python contenant le fichier json relatif au weathercode
+        path (str): le chemin où l'on va stocker l'image
+        fname (str): nom du fichier
+     '''
+     url=data['0']['day']['image']
+     pooch.retrieve(url=url,known_hash=None,path=path,fname=fname)
+# %%
+def dl_ic(df,data,i,path, fname):
+    '''
+    Cette fonction télécharge l'icone (format png) de la météo du jour.
+    Args:
+        df (data_frame): data frame contenant les infos météo
+        data (bibliothèque python): biblio python relative au fichier json contenant l'url des images
+        i (int): l'indice où ce situe le code météo dans df
+        path (str or path-like object): chemin où stocker l'image
+        fname (str): nom du fichier image
+    '''
+    code=str(df[i].iloc[1])
+    url=data[code]['day']['image']
+    pooch.retrieve(url,path=path,fname=fname,known_hash=None)
+#%%
+path_target_ic=os.path.join(
+    os.path.dirname(os.path.realpath(__file__)), "data", "icone.png"
+)
+path_ic, fname_compressed_ic = os.path.split(path_target_ic)
+icon_dl(data=data,path=path_ic,fname=fname_compressed_ic)
 # %%
 df
 df.columns=['Date','Code Météo','Température Max','Température Min','Précipitations','Vitesse Max du vent']
