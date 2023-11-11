@@ -32,21 +32,11 @@ url_im = "https://gist.githubusercontent.com/stellasphere/9490c195ed2b53c707087c
 pooch.retrieve(url=url_im, known_hash=None,path=path_im,fname=fname_compressed_im) #import du fichier image
 with open(path_im +"/"+fname_compressed_im) as f:
      data = json.load(f)
-# %%
-def icon_dl(data,path,fname):
-     '''
-     Télécharge l'icone soleil de la météo
-     Args:
-        data ("json"): une bibliothèque python contenant le fichier json relatif au weathercode
-        path (str): le chemin où l'on va stocker l'image
-        fname (str): nom du fichier
-     '''
-     url=data['0']['day']['image']
-     pooch.retrieve(url=url,known_hash=None,path=path,fname=fname)
+
 # %%
 def dl_ic(df,data,i,path, fname):
     '''
-    Cette fonction télécharge l'icone (format png) de la météo du jour.
+    Cette fonction télécharge l'icone (format png) de la météo du jour i.
     Args:
         df (data_frame): data frame contenant les infos météo
         data (bibliothèque python): biblio python relative au fichier json contenant l'url des images
@@ -58,12 +48,6 @@ def dl_ic(df,data,i,path, fname):
     url=data[code]['day']['image']
     pooch.retrieve(url,path=path,fname=fname,known_hash=None)
 
-#%%
-path_target_ic=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)), "data", "icone.png"
-)
-path_ic, fname_compressed_ic = os.path.split(path_target_ic)
-icon_dl(data=data,path=path_ic,fname=fname_compressed_ic)
 # %%
 df
 df.columns=['Date','Code Météo','Température Max','Température Min','Précipitations','Vitesse Max du vent']
@@ -109,7 +93,7 @@ def temp_max(df,i,fname):
         path (str or path-like object): chemin où stocker l'image
         fname (str or path-like object): nom de l'image
     '''
-    fig = plt.figure(figsize=(0.5,0.5), dpi=100)
+    fig = plt.figure(figsize=(0.5,0.5),facecolor='orange' ,dpi=100)
     ax = plt.subplot()
     ax.annotate(
     xy=(0.5,0.5),
@@ -131,7 +115,7 @@ def temp_min(df,i,fname):
         path (str or path-like object): chemin où stocker l'image
         fname (str or path-like object): nom de l'image
     '''
-    fig = plt.figure(figsize=(0.5,0.5), dpi=100)
+    fig = plt.figure(figsize=(0.5,0.5),facecolor='blue', dpi=100)
     ax = plt.subplot()
     ax.annotate(
     xy=(0.5,0.5),
