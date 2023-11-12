@@ -93,7 +93,10 @@ def temp_max(df,i,fname):
         path (str or path-like object): chemin où stocker l'image
         fname (str or path-like object): nom de l'image
     '''
-    fig = plt.figure(figsize=(0.5,0.5),facecolor='orange' ,dpi=100)
+    path_target=os.path.join(
+    os.path.dirname(os.path.realpath(__file__)),"Projet" ,"data"
+    )
+    fig = plt.figure(figsize=(0.5,0.5),dpi=100)
     ax = plt.subplot()
     ax.annotate(
     xy=(0.5,0.5),
@@ -115,7 +118,10 @@ def temp_min(df,i,fname):
         path (str or path-like object): chemin où stocker l'image
         fname (str or path-like object): nom de l'image
     '''
-    fig = plt.figure(figsize=(0.5,0.5),facecolor='blue', dpi=100)
+    path_target=os.path.join(
+    os.path.dirname(os.path.realpath(__file__)),"Projet" ,"data"
+    )
+    fig = plt.figure(figsize=(0.5,0.5),dpi=100)
     ax = plt.subplot()
     ax.annotate(
     xy=(0.5,0.5),
@@ -137,6 +143,9 @@ def pluie(df,i,fname):
         path (str or path-like object): chemin où stocker l'image
         fname (str or path-like object): nom de l'image
     '''
+    path_target=os.path.join(
+    os.path.dirname(os.path.realpath(__file__)),"Projet" ,"data"
+    )
     fig = plt.figure(figsize=(0.5,0.5), dpi=100)
     ax = plt.subplot()
     ax.annotate(
@@ -159,6 +168,9 @@ def vent(df,i,fname):
         path (str or path-like object): chemin où stocker l'image
         fname (str or path-like object): nom de l'image
     '''
+    path_target=os.path.join(
+    os.path.dirname(os.path.realpath(__file__)),"Projet" ,"data"
+    )
     fig = plt.figure(figsize=(0.5,0.5), dpi=100)
     ax = plt.subplot()
     ax.annotate(
@@ -171,3 +183,27 @@ def vent(df,i,fname):
     ax.set_axis_off()
     plt.show
     plt.savefig(fname,format='svg',dpi=100)
+# %%
+######## "EXTRACTION" DES DONNEES DU TABLEAU ########
+##### Code météo #####
+path_target_im=os.path.join(
+    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j0.png"
+    )
+path_im, fname_im = os.path.split(path_target_im)
+dl_ic(df,data,0,path=path_im,fname=fname_im)
+path_target_im=os.path.join(
+    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j1.png"
+    )
+path_im, fname_im = os.path.split(path_target_im)
+dl_ic(df,data,1,path=path_im,fname=fname_im)
+path_target_im=os.path.join(
+    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j2.png"
+    )
+path_im, fname_im = os.path.split(path_target_im)
+dl_ic(df,data,2,path=path_im,fname=fname_im)
+path_target_im=os.path.join(
+    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j3.png"
+    )
+path_im, fname_im = os.path.split(path_target_im)
+dl_ic(df,data,3,path=path_im,fname=fname_im)
+##### Température Max #####
