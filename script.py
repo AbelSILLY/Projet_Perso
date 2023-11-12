@@ -8,24 +8,22 @@ import pooch
 import pandas as pd
 import json
 from PIL import Image
-import urllib
 
 # IMPORT DES DONNEES:
 #### météo ####
 path_target=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)), "data", "weather_data.csv"
+    os.path.dirname(os.path.realpath(__file__)),'Projet', "data", "weather_data.csv"
 )
 path, fname_compressed = os.path.split(path_target)
 url_db ='https://api.open-meteo.com/v1/meteofrance?latitude=52.52&longitude=13.41&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max&timezone=Europe%2FBerlin&format=csv'
-pooch.retrieve(url=url_db, known_hash='9b26b817be45aca3f5bbf634307fad7f107b2e34803125c09da522be0c55a691',path=path,fname=fname_compressed)
+pooch.retrieve(url=url_db, known_hash='53f0e51d03afffaad0361b99960be9a4a7dc914546075a15f6d4f13d7dd6b701',path=path,fname=fname_compressed)
 df=pd.read_csv(
      path +"/"+fname_compressed,skiprows=[0,1,2],
      converters={"time": str, 'weather_code (wmo code)':str,'temperature_2m_max (°C)':str,'temperature_2m_min (°C)':str,'precipitation_sum (mm)':str,'wind_speed_10m_max (km/h)':str}
      )
-print(df)
 ##### json des icones #####
 path_target_im=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)), "data", "im.json"
+    os.path.dirname(os.path.realpath(__file__)),'Projet', "data", "im.json"
 )
 path_im, fname_compressed_im = os.path.split(path_target_im)
 url_im = "https://gist.githubusercontent.com/stellasphere/9490c195ed2b53c707087c8c2db4ec0c/raw/76b0cb0ef0bfd8a2ec988aa54e30ecd1b483495d/descriptions.json"
@@ -49,7 +47,6 @@ def dl_ic(df,data,i,path, fname):
     pooch.retrieve(url,path=path,fname=fname,known_hash=None)
 
 # %%
-df
 df.columns=['Date','Code Météo','Température Max','Température Min','Précipitations','Vitesse Max du vent']
 ajd=datetime.today().strftime("%d %B %Y")#date d'aujourd'hui au bon format
 jp1=datetime.today()+timedelta(1)#date de demain
@@ -62,7 +59,6 @@ df['Date'][0]=ajd #je remplace dans mon data frame les dates avec le bon format
 df['Date'][1]=jp1
 df['Date'][2]=jp2
 df['Date'][3]=jp3
-df
 ### Modif Température ###
 df['Température Max']+='°C'
 df['Température Min']+='°C'
@@ -70,12 +66,10 @@ df['Température Min']+='°C'
 df['Précipitations']+=' mm'
 ### Modif Vent ###
 df['Vitesse Max du vent']+=' km/h'
-df
 # %%
 df2=df.drop(columns='Date')
 df2=df2.transpose()
 df=df.transpose()
-df2
 # %%
 ############ Import des images de la météo ############
 path_target_im=os.path.join(
@@ -96,7 +90,7 @@ def temp_max(df,i,fname):
     path_target=os.path.join(
     os.path.dirname(os.path.realpath(__file__)),"Projet" ,"data"
     )
-    fig = plt.figure(figsize=(0.5,0.5),dpi=100)
+    fig = plt.figure(figsize=(1,0.5),dpi=100,frameon=False)
     ax = plt.subplot()
     ax.annotate(
     xy=(0.5,0.5),
@@ -106,8 +100,8 @@ def temp_max(df,i,fname):
     #weight='bold'
     )
     ax.set_axis_off()
-    plt.show
-    plt.savefig(fname,format='svg',dpi=100)
+    #plt.show
+    plt.savefig(path_target +"/"+ fname,format='svg',dpi=100)
 # %%
 def temp_min(df,i,fname):
     '''
@@ -121,7 +115,7 @@ def temp_min(df,i,fname):
     path_target=os.path.join(
     os.path.dirname(os.path.realpath(__file__)),"Projet" ,"data"
     )
-    fig = plt.figure(figsize=(0.5,0.5),dpi=100)
+    fig = plt.figure(figsize=(1,0.5),dpi=100,frameon=False)
     ax = plt.subplot()
     ax.annotate(
     xy=(0.5,0.5),
@@ -131,8 +125,8 @@ def temp_min(df,i,fname):
     #weight='bold'
     )
     ax.set_axis_off()
-    plt.show
-    plt.savefig(fname,format='svg',dpi=100)
+    #plt.show
+    plt.savefig(path_target +"/"+ fname,format='svg',dpi=100)
 #%%
 def pluie(df,i,fname):
     '''
@@ -146,7 +140,7 @@ def pluie(df,i,fname):
     path_target=os.path.join(
     os.path.dirname(os.path.realpath(__file__)),"Projet" ,"data"
     )
-    fig = plt.figure(figsize=(0.5,0.5), dpi=100)
+    fig = plt.figure(figsize=(1,0.5), dpi=100)
     ax = plt.subplot()
     ax.annotate(
     xy=(0.5,0.5),
@@ -156,8 +150,8 @@ def pluie(df,i,fname):
     #weight='bold'
     )
     ax.set_axis_off()
-    plt.show
-    plt.savefig(fname,format='svg',dpi=100)
+    #plt.show
+    plt.savefig(path_target +"/"+ fname,format='svg',dpi=100)
 #%%
 def vent(df,i,fname):
     '''
@@ -171,18 +165,18 @@ def vent(df,i,fname):
     path_target=os.path.join(
     os.path.dirname(os.path.realpath(__file__)),"Projet" ,"data"
     )
-    fig = plt.figure(figsize=(0.5,0.5), dpi=100)
+    fig = plt.figure(figsize=(1,0.5), dpi=100,frameon=False)
     ax = plt.subplot()
     ax.annotate(
     xy=(0.5,0.5),
-    text=df[i].iloc[5],
+    text=df[i].iloc[4],
     ha='center',
     va='center',
     #weight='bold'
     )
     ax.set_axis_off()
-    plt.show
-    plt.savefig(fname,format='svg',dpi=100)
+    #plt.show
+    plt.savefig(path_target +"/"+ fname,format='svg',dpi=100)
 # %%
 ######## "EXTRACTION" DES DONNEES DU TABLEAU ########
 ##### Code météo #####
@@ -190,20 +184,41 @@ path_target_im=os.path.join(
     os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j0.png"
     )
 path_im, fname_im = os.path.split(path_target_im)
-dl_ic(df,data,0,path=path_im,fname=fname_im)
+dl_ic(df2,data,0,path=path_im,fname=fname_im)
 path_target_im=os.path.join(
     os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j1.png"
     )
 path_im, fname_im = os.path.split(path_target_im)
-dl_ic(df,data,1,path=path_im,fname=fname_im)
+dl_ic(df2,data,1,path=path_im,fname=fname_im)
 path_target_im=os.path.join(
     os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j2.png"
     )
 path_im, fname_im = os.path.split(path_target_im)
-dl_ic(df,data,2,path=path_im,fname=fname_im)
+dl_ic(df2,data,2,path=path_im,fname=fname_im)
 path_target_im=os.path.join(
     os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j3.png"
     )
 path_im, fname_im = os.path.split(path_target_im)
-dl_ic(df,data,3,path=path_im,fname=fname_im)
+dl_ic(df2,data,3,path=path_im,fname=fname_im)
 ##### Température Max #####
+temp_max(df2,0,"tempmax_j0.svg")
+temp_max(df2,1,'tempmax_j1.svg')
+temp_max(df2,2,'tempmax_j2.svg')
+temp_max(df2,2,'tempmax_j3.svg')
+# NB: je pourrai faire une boucle
+##### Température Min #####
+temp_min(df2,0,"tempmin_j0.svg")
+temp_min(df2,1,'tempmin_j1.svg')
+temp_min(df2,2,'tempmin_j2.svg')
+temp_min(df2,2,'tempmin_j3.svg')
+##### Pluie #####
+pluie(df2,0,"pluie_j0.svg")
+pluie(df2,1,'pluie_j1.svg')
+pluie(df2,2,'pluie_j2.svg')
+pluie(df2,2,'pluie_j3.svg')
+##### Vent #####
+#%%
+vent(df2,0,"vent_j0.svg")
+vent(df2,1,'vent_j1.svg')
+vent(df2,2,'vent_j2.svg')
+vent(df2,2,'vent_j3.svg')
