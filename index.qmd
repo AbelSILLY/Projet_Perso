@@ -175,7 +175,7 @@ def vent(df,i,fname):
     '''
     plt.ioff()
     path_target=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)), "Projet" ,"data"
+    os.path.dirname(os.path.realpath(__file__)),"Projet" ,"data"
     )
     fig = plt.figure(figsize=(1,0.5), dpi=100,frameon=False)
     ax = plt.subplot()
