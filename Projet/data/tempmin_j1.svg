@@ -6,11 +6,11 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2023-11-13T18:15:00.463566</dc:date>
+    <dc:date>2023-11-13T19:33:38.409985</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
-      <dc:title>Matplotlib v3.7.1, https://matplotlib.org/</dc:title>
+      <dc:title>Matplotlib v3.7.2, https://matplotlib.org/</dc:title>
      </cc:Agent>
     </dc:creator>
    </cc:Work>
@@ -22,8 +22,8 @@
  <g id="figure_1">
   <g id="axes_1">
    <g id="text_1">
-    <!-- 1.7°C -->
-    <g transform="translate(22.957031 20.939375) scale(0.1 -0.1)">
+    <!-- 14.7°C -->
+    <g transform="translate(19.775781 20.939375) scale(0.1 -0.1)">
      <defs>
       <path id="DejaVuSans-31" d="M 794 531 
 L 1825 531 
@@ -37,6 +37,25 @@ L 3481 531
 L 3481 0 
 L 794 0 
 L 794 531 
+z
+" transform="scale(0.015625)"/>
+      <path id="DejaVuSans-34" d="M 2419 4116 
+L 825 1625 
+L 2419 1625 
+L 2419 4116 
+z
+M 2253 4666 
+L 3047 4666 
+L 3047 1625 
+L 3713 1625 
+L 3713 1100 
+L 3047 1100 
+L 3047 0 
+L 2419 0 
+L 2419 1100 
+L 313 1100 
+L 313 1709 
+L 2253 4666 
 z
 " transform="scale(0.015625)"/>
       <path id="DejaVuSans-2e" d="M 684 794 
@@ -102,10 +121,11 @@ z
 " transform="scale(0.015625)"/>
      </defs>
      <use xlink:href="#DejaVuSans-31"/>
-     <use xlink:href="#DejaVuSans-2e" x="63.623047"/>
-     <use xlink:href="#DejaVuSans-37" x="95.410156"/>
-     <use xlink:href="#DejaVuSans-b0" x="159.033203"/>
-     <use xlink:href="#DejaVuSans-43" x="209.033203"/>
+     <use xlink:href="#DejaVuSans-34" x="63.623047"/>
+     <use xlink:href="#DejaVuSans-2e" x="127.246094"/>
+     <use xlink:href="#DejaVuSans-37" x="159.033203"/>
+     <use xlink:href="#DejaVuSans-b0" x="222.65625"/>
+     <use xlink:href="#DejaVuSans-43" x="272.65625"/>
     </g>
    </g>
   </g>
