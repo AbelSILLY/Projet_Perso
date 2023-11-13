@@ -1,0 +1,19 @@
+project:
+  type: website
+  render:
+    - index.qmd
+
+website:
+  title: "Météo de Montpellier"
+  site-url: https://abelsilly.github.io/Projet_Perso/
+  repo-url: https://github.com/AbelSILLY/Projet_Perso
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
