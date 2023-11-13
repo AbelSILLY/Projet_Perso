@@ -13,6 +13,8 @@ import pooch
 import pandas as pd
 import json
 from PIL import Image
+import warnings
+warnings.filterwarnings("ignore")
 __file__='C:\\Users\\abels\\OneDrive\\Bureau\\HAX712X\\Projet_Perso\\script.py'
 
 # IMPORT DES DONNEES:
@@ -22,7 +24,7 @@ path_target=os.path.join(
 )
 path, fname_compressed = os.path.split(path_target)
 url_db ='https://api.open-meteo.com/v1/meteofrance?latitude=52.52&longitude=13.41&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max&timezone=Europe%2FBerlin&format=csv'
-pooch.retrieve(url=url_db, known_hash='53f0e51d03afffaad0361b99960be9a4a7dc914546075a15f6d4f13d7dd6b701',path=path,fname=fname_compressed)
+pooch.retrieve(url=url_db, known_hash=None,path=path,fname=fname_compressed)
 df=pd.read_csv(
      path +"/"+fname_compressed,skiprows=[0,1,2],
      converters={"time": str, 'weather_code (wmo code)':str,'temperature_2m_max (°C)':str,'temperature_2m_min (°C)':str,'precipitation_sum (mm)':str,'wind_speed_10m_max (km/h)':str}
@@ -173,7 +175,7 @@ def vent(df,i,fname):
     '''
     plt.ioff()
     path_target=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),"Projet" ,"data"
+    os.path.dirname(os.path.realpath(__file__)), "Projet" ,"data"
     )
     fig = plt.figure(figsize=(1,0.5), dpi=100,frameon=False)
     ax = plt.subplot()
@@ -269,27 +271,27 @@ thead,th {text-align: center;}
 <table>
 <tr> <th> J+0 </th> <th> J+1 </th> <th> J+2 </th> <th> J+3 </th> </tr>
 <tr>
-    <td> <image src = "/Projet/data/im_j0.png"> </image> </td> 
-    <td> <image src = "/Projet/data/im_j1.png"> </image> </td>
-    <td> <image src = "/Projet/data/im_j2.png"> </image> </td>
-    <td> <image src = "/Projet/data/im_j3.png"> </image> </td> </tr>
+    <td> <image src = "./Projet/data/im_j0.png"> </image> </td> 
+    <td> <image src = "./Projet/data/im_j1.png"> </image> </td>
+    <td> <image src = "./Projet/data/im_j2.png"> </image> </td>
+    <td> <image src = "./Projet/data/im_j3.png"> </image> </td> </tr>
 <tr> 
-    <td> <image src = "/Projet/data/tempmax_j0.svg"> </image> </td>
-    <td> <image src = "/Projet/data/tempmax_j1.svg"> </image> </td>
-    <td> <image src = "/Projet/data/tempmax_j2.svg"> </image> </td>
-    <td> <image src = "/Projet/data/tempmax_j3.svg"> </image> </td>
+    <td> <image src = "./Projet/data/tempmax_j0.svg"> </image> </td>
+    <td> <image src = "./Projet/data/tempmax_j1.svg"> </image> </td>
+    <td> <image src = "./Projet/data/tempmax_j2.svg"> </image> </td>
+    <td> <image src = "./Projet/data/tempmax_j3.svg"> </image> </td>
 </tr>
 <tr>
-    <td> <image src = "/Projet/data/tempmin_j0.svg"> </image> </td>
-    <td> <image src = "/Projet/data/tempmin_j1.svg"> </image> </td>
-    <td> <image src = "/Projet/data/tempmin_j2.svg"> </image> </td>
-    <td> <image src = "/Projet/data/tempmin_j3.svg"> </image> </td>
+    <td> <image src = "./Projet/data/tempmin_j0.svg"> </image> </td>
+    <td> <image src = "./Projet/data/tempmin_j1.svg"> </image> </td>
+    <td> <image src = "./Projet/data/tempmin_j2.svg"> </image> </td>
+    <td> <image src = "./Projet/data/tempmin_j3.svg"> </image> </td>
 </tr>
 <tr>
-    <td> <image src = "/Projet/data/pluie_j0.svg"> </image>  </td>
-    <td> <image src = "/Projet/data/pluie_j1.svg"> </td>
-    <td> <image src = "/Projet/data/pluie_j2.svg"> </td>
-    <td> <image src = "/Projet/data/pluie_j3.svg"> </td>
+    <td> <image src = "./Projet/data/pluie_j0.svg"> </image>  </td>
+    <td> <image src = "./Projet/data/pluie_j1.svg"> </td>
+    <td> <image src = "./Projet/data/pluie_j2.svg"> </td>
+    <td> <image src = "./Projet/data/pluie_j3.svg"> </td>
 </tr>
 <tr>
     <td> <image src = "/Projet/data/vent_j0.svg"> </image>  </td>
