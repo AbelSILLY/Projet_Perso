@@ -8,6 +8,7 @@ import pooch
 import pandas as pd
 import json
 from PIL import Image
+import shutil
 
 # IMPORT DES DONNEES:
 #### météo ####
@@ -15,7 +16,7 @@ path_target=os.path.join(
     os.path.dirname(os.path.realpath(__file__)),'Projet', "data", "weather_data.csv"
 )
 path, fname_compressed = os.path.split(path_target)
-url_db ='https://api.open-meteo.com/v1/meteofrance?latitude=52.52&longitude=13.41&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max&timezone=Europe%2FBerlin&format=csv'
+url_db ='https://api.open-meteo.com/v1/meteofrance?latitude=43.6109&longitude=3.8763&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max&format=csv'
 pooch.retrieve(url=url_db, known_hash=None,path=path,fname=fname_compressed)
 df=pd.read_csv(
      path +"/"+fname_compressed,skiprows=[0,1,2],
@@ -140,7 +141,7 @@ def pluie(df,i,fname):
     path_target=os.path.join(
     os.path.dirname(os.path.realpath(__file__)),"Projet" ,"data"
     )
-    fig = plt.figure(figsize=(1,0.5), dpi=100)
+    fig = plt.figure(figsize=(1,0.5), dpi=100,frameon=False)
     ax = plt.subplot()
     ax.annotate(
     xy=(0.5,0.5),
@@ -230,19 +231,44 @@ path_target=os.path.join(
 )
 os.remove(path_target)
 #### svg images code météo ####
+### copie des images avant suppression ###
+## icone 0 ##
 path_target_im=os.path.join(
     os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j0.png"
     )
-os.remove(path_target_im)
+path_target1=path_target_im
+path_target2=os.path.join(
+    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j0C.png"
+    )
+shutil.copyfile(path_target1,path_target2) #copie le fichier contenant l'icone météo
+os.remove(path_target_im) #supprime la première version de l'icone (on garde la copie pour l'afficher)
+## icone 1 ##
 path_target_im=os.path.join(
     os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j1.png"
     )
+path_target1=path_target_im
+path_target2=os.path.join(
+    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j1C.png"
+    )
+shutil.copyfile(path_target1,path_target2)
 os.remove(path_target_im)
+## icone 2 ##
 path_target_im=os.path.join(
     os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j2.png"
     )
+path_target1=path_target_im
+path_target2=os.path.join(
+    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j2C.png"
+    )
+shutil.copyfile(path_target1,path_target2)
 os.remove(path_target_im)
+## icone 3
 path_target_im=os.path.join(
     os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j3.png"
     )
+path_target1=path_target_im
+path_target2=os.path.join(
+    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j3C.png"
+    )
+shutil.copyfile(path_target1,path_target2)
 os.remove(path_target_im)
