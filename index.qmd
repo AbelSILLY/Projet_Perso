@@ -233,6 +233,30 @@ vent(df2,0,"vent_j0.svg")
 vent(df2,1,'vent_j1.svg')
 vent(df2,2,'vent_j2.svg')
 vent(df2,2,'vent_j3.svg')
+# %%
+####### Suppression des données #######
+#### csv météo ####
+path_target=os.path.join(
+    os.path.dirname(os.path.realpath(__file__)),'Projet', "data", "weather_data.csv"
+)
+os.remove(path_target)
+#### svg images code météo ####
+path_target_im=os.path.join(
+    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j0.png"
+    )
+os.remove(path_target_im)
+path_target_im=os.path.join(
+    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j1.png"
+    )
+os.remove(path_target_im)
+path_target_im=os.path.join(
+    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j2.png"
+    )
+os.remove(path_target_im)
+path_target_im=os.path.join(
+    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j3.png"
+    )
+os.remove(path_target_im)
 ```
 
 
