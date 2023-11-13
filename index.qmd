@@ -294,9 +294,9 @@ thead,th {text-align: center;}
     <td> <image src = "./Projet/data/pluie_j3.svg"> </td>
 </tr>
 <tr>
-    <td> <image src = "/Projet/data/vent_j0.svg"> </image>  </td>
-    <td> <image src = "/Projet/data/vent_j1.svg"> </image>  </td>
-    <td> <image src = "/Projet/data/vent_j2.svg"> </image>  </td>
-    <td> <image src = "/Projet/data/vent_j3.svg"> </image>  </td>
+    <td> <image src = "./Projet/data/vent_j0.svg"> </image>  </td>
+    <td> <image src = "./Projet/data/vent_j1.svg"> </image>  </td>
+    <td> <image src = "./Projet/data/vent_j2.svg"> </image>  </td>
+    <td> <image src = "./Projet/data/vent_j3.svg"> </image>  </td>
 </tr>
 </table>
