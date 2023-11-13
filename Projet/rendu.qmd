@@ -1,5 +1,0 @@
-# Météo Montpellier
-## Ce site affiche la météo des 4 prochains jours
- ```{python}
- from Projet.io import Load
- ```
