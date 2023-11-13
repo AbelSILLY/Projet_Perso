@@ -16,7 +16,7 @@ path_target=os.path.join(
 )
 path, fname_compressed = os.path.split(path_target)
 url_db ='https://api.open-meteo.com/v1/meteofrance?latitude=52.52&longitude=13.41&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max&timezone=Europe%2FBerlin&format=csv'
-pooch.retrieve(url=url_db, known_hash='53f0e51d03afffaad0361b99960be9a4a7dc914546075a15f6d4f13d7dd6b701',path=path,fname=fname_compressed)
+pooch.retrieve(url=url_db, known_hash=None,path=path,fname=fname_compressed)
 df=pd.read_csv(
      path +"/"+fname_compressed,skiprows=[0,1,2],
      converters={"time": str, 'weather_code (wmo code)':str,'temperature_2m_max (°C)':str,'temperature_2m_min (°C)':str,'precipitation_sum (mm)':str,'wind_speed_10m_max (km/h)':str}
