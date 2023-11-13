@@ -300,3 +300,8 @@ thead,th {text-align: center;}
     <td> <image src = "./Projet/data/vent_j3.svg"> </image>  </td>
 </tr>
 </table>
+
+```{python}
+import datetime
+print("Le site à été actualisé le ",datetime.today().strftime("%d %B %Y")," à ",datetime.datetime.now().strftime('%H:%M:%S'))
+```
