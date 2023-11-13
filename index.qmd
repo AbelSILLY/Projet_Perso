@@ -303,5 +303,5 @@ thead,th {text-align: center;}
 
 ```{python}
 import datetime
-print("Le site à été actualisé le ",datetime.today().strftime("%d %B %Y")," à ",datetime.datetime.now().strftime('%H:%M:%S'))
+print("Le site à été actualisé le ",datetime.date.today().strftime("%d %B %Y")," à ",datetime.datetime.now().strftime('%H:%M:%S'))
 ```
