@@ -3,3 +3,7 @@ Projet_Perso_.code-workspace
 Projet/io/__pycache__/__init__.cpython-311.pyc
 index_files/
 index.html
+
+/.quarto/
+.nojekyll
+_site/
