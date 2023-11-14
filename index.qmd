@@ -20,7 +20,7 @@ __file__=os.path.realpath(os.getcwd())
 # IMPORT DES DONNEES:
 #### météo ####
 path_target=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),'Projet', "data", "weather_data.csv"
+    os.path.realpath(__file__),'Projet', "data", "weather_data.csv"
 )
 path, fname_compressed = os.path.split(path_target)
 url_db ='https://api.open-meteo.com/v1/meteofrance?latitude=43.6109&longitude=3.8763&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max&format=csv'
@@ -31,7 +31,7 @@ df=pd.read_csv(
      )
 ##### json des icones #####
 path_target_im=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),'Projet', "data", "im.json"
+    os.path.realpath(__file__),'Projet', "data", "im.json"
 )
 path_im, fname_compressed_im = os.path.split(path_target_im)
 url_im = "https://gist.githubusercontent.com/stellasphere/9490c195ed2b53c707087c8c2db4ec0c/raw/76b0cb0ef0bfd8a2ec988aa54e30ecd1b483495d/descriptions.json"
@@ -81,7 +81,7 @@ df=df.transpose()
 # %%
 ############ Import des images de la météo ############
 path_target_im=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),"Projet", "data", "im_j0.png"
+    os.path.realpath(__file__),"Projet", "data", "im_j0.png"
     )
 path_im, fname_im = os.path.split(path_target_im)
 dl_ic(df=df2,data=data,i=0,path=path_im,fname=fname_im)
@@ -97,7 +97,7 @@ def temp_max(df,i,fname):
     '''
     plt.ioff()
     path_target=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),"Projet" ,"data"
+    os.path.realpath(__file__),"Projet" ,"data"
     )
     fig = plt.figure(figsize=(1,0.5),dpi=100,frameon=False)
     ax = plt.subplot()
@@ -123,7 +123,7 @@ def temp_min(df,i,fname):
     '''
     plt.ioff()
     path_target=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),"Projet" ,"data"
+    os.path.realpath(__file__),"Projet" ,"data"
     )
     fig = plt.figure(figsize=(1,0.5),dpi=100,frameon=False)
     ax = plt.subplot()
@@ -149,7 +149,7 @@ def pluie(df,i,fname):
     '''
     plt.ioff()
     path_target=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),"Projet" ,"data"
+    os.path.realpath(__file__),"Projet" ,"data"
     )
     fig = plt.figure(figsize=(1,0.5), dpi=100,frameon=False)
     ax = plt.subplot()
@@ -175,7 +175,7 @@ def vent(df,i,fname):
     '''
     plt.ioff()
     path_target=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),"Projet" ,"data"
+    os.path.realpath(__file__),"Projet" ,"data"
     )
     fig = plt.figure(figsize=(1,0.5), dpi=100,frameon=False)
     ax = plt.subplot()
@@ -193,22 +193,22 @@ def vent(df,i,fname):
 ######## "EXTRACTION" DES DONNEES DU TABLEAU ########
 ##### Code météo #####
 path_target_im=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j0.png"
+    os.path.realpath(__file__),'Projet',"data", "im_j0.png"
     )
 path_im, fname_im = os.path.split(path_target_im)
 dl_ic(df2,data,0,path=path_im,fname=fname_im)
 path_target_im=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j1.png"
+    os.path.realpath(__file__),'Projet',"data", "im_j1.png"
     )
 path_im, fname_im = os.path.split(path_target_im)
 dl_ic(df2,data,1,path=path_im,fname=fname_im)
 path_target_im=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j2.png"
+    os.path.realpath(__file__),'Projet',"data", "im_j2.png"
     )
 path_im, fname_im = os.path.split(path_target_im)
 dl_ic(df2,data,2,path=path_im,fname=fname_im)
 path_target_im=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j3.png"
+    os.path.realpath(__file__),'Projet',"data", "im_j3.png"
     )
 path_im, fname_im = os.path.split(path_target_im)
 dl_ic(df2,data,3,path=path_im,fname=fname_im)
@@ -237,48 +237,48 @@ vent(df2,2,'vent_j3.svg')
 ####### Suppression des données #######
 #### csv météo ####
 path_target=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),'Projet', "data", "weather_data.csv"
+    os.path.realpath(__file__),'Projet', "data", "weather_data.csv"
 )
 os.remove(path_target)
 #### svg images code météo ####
 ### copie des images avant suppression ###
 ## icone 0 ##
 path_target_im=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j0.png"
+    os.path.realpath(__file__),'Projet',"data", "im_j0.png"
     )
 path_target1=path_target_im
 path_target2=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j0C.png"
+    os.path.realpath(__file__),'Projet',"data", "im_j0C.png"
     )
 shutil.copyfile(path_target1,path_target2) #copie le fichier contenant l'icone météo
 os.remove(path_target_im) #supprime la première version de l'icone (on garde la copie pour l'afficher)
 ## icone 1 ##
 path_target_im=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j1.png"
+    os.path.realpath(__file__),'Projet',"data", "im_j1.png"
     )
 path_target1=path_target_im
 path_target2=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j1C.png"
+    os.path.realpath(__file__),'Projet',"data", "im_j1C.png"
     )
 shutil.copyfile(path_target1,path_target2)
 os.remove(path_target_im)
 ## icone 2 ##
 path_target_im=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j2.png"
+    os.path.realpath(__file__),'Projet',"data", "im_j2.png"
     )
 path_target1=path_target_im
 path_target2=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j2C.png"
+    os.path.realpath(__file__),'Projet',"data", "im_j2C.png"
     )
 shutil.copyfile(path_target1,path_target2)
 os.remove(path_target_im)
 ## icone 3
 path_target_im=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j3.png"
+    os.path.realpath(__file__),'Projet',"data", "im_j3.png"
     )
 path_target1=path_target_im
 path_target2=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j3C.png"
+    os.path.realpath(__file__),'Projet',"data", "im_j3C.png"
     )
 shutil.copyfile(path_target1,path_target2)
 os.remove(path_target_im)
