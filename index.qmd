@@ -16,7 +16,6 @@ from PIL import Image
 import warnings
 import shutil
 warnings.filterwarnings("ignore")
-__file__='C:\\Users\\abels\\OneDrive\\Bureau\\HAX712X\\Projet_Perso\\script.py'
 
 # IMPORT DES DONNEES:
 #### météo ####
