@@ -2,6 +2,13 @@
 Ce site affiche la météo (plus ou moins précise) des 4 prochains jours à Montpellier.
 
 ```{python}
+path_target = os.path.join(
+    os.path.dirname(os.path.realpath(__file__)),'Projet', "data", "weather_data.csv"
+)
+```
+
+
+```{python}
 #| echo: false
 # %%
 #import Projet
@@ -16,7 +23,7 @@ from PIL import Image
 import warnings
 import shutil
 warnings.filterwarnings("ignore")
-
+__file__=os.path.realpath(os.getcwd())
 # IMPORT DES DONNEES:
 #### météo ####
 path_target=os.path.join(
