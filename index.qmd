@@ -72,7 +72,7 @@ def date(df,i,fname):
         fname (str or path-like object): nom de l'image
     '''
     plt.ioff()
-    fig = plt.figure(figsize=(1,0.5),dpi=100,frameon=False)
+    fig = plt.figure(figsize=(2,0.5),dpi=100,frameon=False)
     ax = plt.subplot()
     ax.annotate(
     xy=(0.5,0.5),
