@@ -25,10 +25,9 @@ with open("./Projet/data/weather.csv",'w') as output_file:
 #pooch.retrieve(url=url_db, known_hash=None,path=path,fname=fname_compressed)
 df=pd.read_csv(
      "./Projet/data/weather.csv",skiprows=[0,1,2],
-     converters={"time": str, 'weather_code (wmo code)':str,'temperature_2m_max (°C)':str,'temperature_2m_min (°C)':str,'precipitation_sum (mm)':str,'wind_speed_10m_max (km/h)':str},
+     converters={"time": str, 'weather_code (wmo code)':str,'temperature_2m_max (Â°C)':str,'temperature_2m_min (Â°C)':str,'precipitation_sum (mm)':str,'wind_speed_10m_max (km/h)':str},
      encoding="unicode_escape"
      )
-
 #%%
 ##### json des icones #####
 path_target_im=os.path.join(
