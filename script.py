@@ -22,7 +22,6 @@ data = requests.get(url_db)
 with open("./Projet/data/weather.csv",'w') as output_file:
     output_file.write(data.text)
 
-#pooch.retrieve(url=url_db, known_hash=None,path=path,fname=fname_compressed)
 df=pd.read_csv(
      "./Projet/data/weather.csv",skiprows=[0,1,2],
      converters={"time": str, 'weather_code (wmo code)':str,'temperature_2m_max (Â°C)':str,'temperature_2m_min (Â°C)':str,'precipitation_sum (mm)':str,'wind_speed_10m_max (km/h)':str},
@@ -47,7 +46,6 @@ def dl_ic(df,data,i, fname):
         df (data_frame): data frame contenant les infos météo
         data (bibliothèque python): biblio python relative au fichier json contenant l'url des images
         i (int): l'indice où ce situe le code météo dans df
-        path (str or path-like object): chemin où stocker l'image
         fname (str): nom du fichier image
     '''
     code=df[i].iloc[0]
@@ -57,6 +55,110 @@ def dl_ic(df,data,i, fname):
          im.raw.decode_content=True
          shutil.copyfileobj(im.raw,output_image)
 
+# %%
+def date(df,i,fname):
+    '''
+    Télécharge une image (format svg) affichant la température max du jour i.
+    Args:
+        df (dataframe): datframe des données météo
+        i (int): indice du jour
+        path (str or path-like object): chemin où stocker l'image
+        fname (str or path-like object): nom de l'image
+    '''
+    plt.ioff()
+    fig = plt.figure(figsize=(1,0.5),dpi=100,frameon=False)
+    ax = plt.subplot()
+    ax.annotate(
+    xy=(0.5,0.5),
+    text=df[i].iloc[0],
+    ha='center',
+    va='center',
+    )
+    ax.set_axis_off()
+    plt.savefig("./Projet/data/" + fname,format='svg',dpi=100)
+# %%
+def temp_max(df,i,fname):
+    '''
+    Télécharge une image (format svg) affichant la température max du jour i.
+    Args:
+        df (dataframe): datframe des données météo
+        i (int): indice du jour
+        path (str or path-like object): chemin où stocker l'image
+        fname (str or path-like object): nom de l'image
+    '''
+    plt.ioff()
+    fig = plt.figure(figsize=(1,0.5),dpi=100,frameon=False)
+    ax = plt.subplot()
+    ax.annotate(
+    xy=(0.5,0.5),
+    text=df[i].iloc[1],
+    ha='center',
+    va='center',
+    )
+    ax.set_axis_off()
+    plt.savefig("./Projet/data/" + fname,format='svg',dpi=100)
+# %%
+def temp_min(df,i,fname):
+    '''
+    Télécharge une image (format svg) affichant la température min du jour i.
+    Args:
+        df (dataframe): datframe des données météo
+        i (int): indice du jour
+        path (str or path-like object): chemin où stocker l'image
+        fname (str or path-like object): nom de l'image
+    '''
+    plt.ioff()
+    fig = plt.figure(figsize=(1,0.5),dpi=100,frameon=False)
+    ax = plt.subplot()
+    ax.annotate(
+    xy=(0.5,0.5),
+    text=df[i].iloc[2],
+    ha='center',
+    va='center',
+    )
+    ax.set_axis_off()
+    plt.savefig("./Projet/data/" + fname,format='svg',dpi=100)
+#%%
+def pluie(df,i,fname):
+    '''
+    Télécharge une image (format svg) affichant la pluie du jour i.
+    Args:
+        df (dataframe): datframe des données météo
+        i (int): indice du jour
+        fname (str or path-like object): nom de l'image
+    '''
+    plt.ioff()
+    fig = plt.figure(figsize=(1,0.5), dpi=100,frameon=False)
+    ax = plt.subplot()
+    ax.annotate(
+    xy=(0.5,0.5),
+    text=df[i].iloc[3],
+    ha='center',
+    va='center',
+    )
+    ax.set_axis_off()
+    plt.savefig("./Projet/data/" + fname,format='svg',dpi=100)
+#%%
+def vent(df,i,fname):
+    '''
+    Télécharge une image (format svg) affichant le vent du jour i.
+    Args:
+        df (dataframe): datframe des données météo
+        i (int): indice du jour
+        path (str or path-like object): chemin où stocker l'image
+        fname (str or path-like object): nom de l'image
+    '''
+    plt.ioff()
+    fig = plt.figure(figsize=(1,0.5), dpi=100,frameon=False)
+    ax = plt.subplot()
+    ax.annotate(
+    xy=(0.5,0.5),
+    text=df[i].iloc[4],
+    ha='center',
+    va='center',
+    )
+    ax.set_axis_off()
+    plt.savefig("./Projet/data/" + fname,format='svg',dpi=100)
 # %%
 df.columns=['Date','Code Météo','Température Max','Température Min','Précipitations','Vitesse Max du vent']
 ajd=datetime.today().strftime("%d %B %Y")#date d'aujourd'hui au bon format
@@ -82,202 +184,27 @@ df2=df.drop(columns='Date')
 df2=df2.transpose()
 df=df.transpose()
 # %%
-############ Import des images de la météo ############
-#path_target_im=os.path.join(
-#    os.path.dirname(os.path.realpath(__file__)),"Projet", "data", "im_j0.png"
-#    )
-#path_im, fname_im = os.path.split(path_target_im)
-#dl_ic(df=df2,data=data,i=0,path=path_im,fname=fname_im)
-# %%
-def temp_max(df,i,fname):
-    '''
-    Télécharge une image (format svg) affichant la température max du jour i.
-    Args:
-        df (dataframe): datframe des données météo
-        i (int): indice du jour
-        path (str or path-like object): chemin où stocker l'image
-        fname (str or path-like object): nom de l'image
-    '''
-    path_target=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),"Projet" ,"data"
-    )
-    fig = plt.figure(figsize=(1,0.5),dpi=100,frameon=False)
-    ax = plt.subplot()
-    ax.annotate(
-    xy=(0.5,0.5),
-    text=df[i].iloc[1],
-    ha='center',
-    va='center',
-    #weight='bold'
-    )
-    ax.set_axis_off()
-    #plt.show
-    plt.savefig(path_target +"/"+ fname,format='svg',dpi=100)
-# %%
-def temp_min(df,i,fname):
-    '''
-    Télécharge une image (format svg) affichant la température min du jour i.
-    Args:
-        df (dataframe): datframe des données météo
-        i (int): indice du jour
-        path (str or path-like object): chemin où stocker l'image
-        fname (str or path-like object): nom de l'image
-    '''
-    path_target=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),"Projet" ,"data"
-    )
-    fig = plt.figure(figsize=(1,0.5),dpi=100,frameon=False)
-    ax = plt.subplot()
-    ax.annotate(
-    xy=(0.5,0.5),
-    text=df[i].iloc[2],
-    ha='center',
-    va='center',
-    #weight='bold'
-    )
-    ax.set_axis_off()
-    #plt.show
-    plt.savefig(path_target +"/"+ fname,format='svg',dpi=100)
-#%%
-def pluie(df,i,fname):
-    '''
-    Télécharge une image (format svg) affichant la pluie du jour i.
-    Args:
-        df (dataframe): datframe des données météo
-        i (int): indice du jour
-        fname (str or path-like object): nom de l'image
-    '''
-    path_target=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),"Projet" ,"data"
-    )
-    fig = plt.figure(figsize=(1,0.5), dpi=100,frameon=False)
-    ax = plt.subplot()
-    ax.annotate(
-    xy=(0.5,0.5),
-    text=df[i].iloc[3],
-    ha='center',
-    va='center',
-    #weight='bold'
-    )
-    ax.set_axis_off()
-    #plt.show
-    plt.savefig("./Projet/data/" + fname,format='svg',dpi=100)
-#%%
-def vent(df,i,fname):
-    '''
-    Télécharge une image (format svg) affichant le vent du jour i.
-    Args:
-        df (dataframe): datframe des données météo
-        i (int): indice du jour
-        path (str or path-like object): chemin où stocker l'image
-        fname (str or path-like object): nom de l'image
-    '''
-    path_target=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),"Projet" ,"data"
-    )
-    fig = plt.figure(figsize=(1,0.5), dpi=100,frameon=False)
-    ax = plt.subplot()
-    ax.annotate(
-    xy=(0.5,0.5),
-    text=df[i].iloc[4],
-    ha='center',
-    va='center',
-    #weight='bold'
-    )
-    ax.set_axis_off()
-    #plt.show
-    plt.savefig(path_target +"/"+ fname,format='svg',dpi=100)
-# %%
 ######## "EXTRACTION" DES DONNEES DU TABLEAU ########
 ##### Code météo #####
-path_target_im=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j0.png"
-    )
-path_im, fname_im = os.path.split(path_target_im)
-dl_ic(df2,data,0,fname=fname_im)
-path_target_im=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j1.png"
-    )
-path_im, fname_im = os.path.split(path_target_im)
-dl_ic(df2,data,1,fname=fname_im)
-path_target_im=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j2.png"
-    )
-path_im, fname_im = os.path.split(path_target_im)
-dl_ic(df2,data,2,fname=fname_im)
-path_target_im=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j3.png"
-    )
-path_im, fname_im = os.path.split(path_target_im)
-dl_ic(df2,data,3,fname=fname_im)
-##### Température Max #####
-temp_max(df2,0,"tempmax_j0.svg")
-temp_max(df2,1,'tempmax_j1.svg')
-temp_max(df2,2,'tempmax_j2.svg')
-temp_max(df2,3,'tempmax_j3.svg')
-# NB: je pourrai faire une boucle
-##### Température Min #####
-temp_min(df2,0,"tempmin_j0.svg")
-temp_min(df2,1,'tempmin_j1.svg')
-temp_min(df2,2,'tempmin_j2.svg')
-temp_min(df2,3,'tempmin_j3.svg')
-##### Pluie #####
-pluie(df2,0,"pluie_j0.svg")
-pluie(df2,1,'pluie_j1.svg')
-pluie(df2,2,'pluie_j2.svg')
-pluie(df2,3,'pluie_j3.svg')
-##### Vent #####
-vent(df2,0,"vent_j0.svg")
-vent(df2,1,'vent_j1.svg')
-vent(df2,2,'vent_j2.svg')
-vent(df2,3,'vent_j3.svg')
+for i in range(4):
+    dl_ic(df2,data,i,'im_j'+str(i)+'.png')
 
-# %%
-####### Suppression des données #######
-#### csv météo ####
-path_target=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),'Projet', "data", "weather_data.csv"
-)
-#os.remove(path_target)
-#### svg images code météo ####
-### copie des images avant suppression ###
-## icone 0 ##
-#path_target_im=os.path.join(
-#    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j0.png"
-#    )
-#path_target1=path_target_im
-#path_target2=os.path.join(
-#    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j0C.png"
-#    )
-#shutil.copyfile(path_target1,path_target2) #copie le fichier contenant l'icone météo
-#os.remove(path_target_im) #supprime la première version de l'icone (on garde la copie pour l'afficher)
-## icone 1 ##
-#path_target_im=os.path.join(
-#    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j1.png"
-#    )
-#path_target1=path_target_im
-#path_target2=os.path.join(
-#    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j1C.png"
-#    )
-#shutil.copyfile(path_target1,path_target2)
-#os.remove(path_target_im)
-## icone 2 ##
-#path_target_im=os.path.join(
-#    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j2.png"
-#    )
-#path_target1=path_target_im
-#path_target2=os.path.join(
-#    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j2C.png"
-#    )
-#shutil.copyfile(path_target1,path_target2)
-#os.remove(path_target_im)
-## icone 3
-#path_target_im=os.path.join(
-#    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j3.png"
-#    )
-#path_target1=path_target_im
-#path_target2=os.path.join(
-#    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j3C.png"
-#    )
-#shutil.copyfile(path_target1,path_target2)
-#os.remove(path_target_im)
+##### Date #####
+for i in range(4):
+    date(df,i,'date_j'+str(i)+'.svg')
+
+##### Température Max #####
+for i in range(4):
+    temp_max(df2,i,'tempmax_j'+str(i)+'.svg')
+
+##### Température Min #####
+for i in range(4):
+    temp_min(df2,i,'tempmin_j'+str(i)+'.svg')
+
+##### Pluie #####
+for i in range(4):
+    pluie(df2,i,'pluie_j'+str(i)+'.svg')
+
+##### Vent #####
+for i in range(4):
+    vent(df2,i,'vent_j'+str(i)+'.svg')
