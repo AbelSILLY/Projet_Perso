@@ -221,23 +221,23 @@ dl_ic(df2,data,3,fname=fname_im)
 temp_max(df2,0,"tempmax_j0.svg")
 temp_max(df2,1,'tempmax_j1.svg')
 temp_max(df2,2,'tempmax_j2.svg')
-temp_max(df2,2,'tempmax_j3.svg')
+temp_max(df2,3,'tempmax_j3.svg')
 # NB: je pourrai faire une boucle
 ##### Température Min #####
 temp_min(df2,0,"tempmin_j0.svg")
 temp_min(df2,1,'tempmin_j1.svg')
 temp_min(df2,2,'tempmin_j2.svg')
-temp_min(df2,2,'tempmin_j3.svg')
+temp_min(df2,3,'tempmin_j3.svg')
 ##### Pluie #####
 pluie(df2,0,"pluie_j0.svg")
 pluie(df2,1,'pluie_j1.svg')
 pluie(df2,2,'pluie_j2.svg')
-pluie(df2,2,'pluie_j3.svg')
+pluie(df2,3,'pluie_j3.svg')
 ##### Vent #####
 vent(df2,0,"vent_j0.svg")
 vent(df2,1,'vent_j1.svg')
 vent(df2,2,'vent_j2.svg')
-vent(df2,2,'vent_j3.svg')
+vent(df2,3,'vent_j3.svg')
 # %%
 ####### Suppression des données #######
 #### csv météo ####
