@@ -9,6 +9,7 @@ import pandas as pd
 import json
 from PIL import Image
 import shutil
+import requests
 
 # IMPORT DES DONNEES:
 #### météo ####
@@ -17,10 +18,15 @@ path_target=os.path.join(
 )
 path, fname_compressed = os.path.split(path_target)
 url_db ='https://api.open-meteo.com/v1/meteofrance?latitude=43.6109&longitude=3.8763&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max&format=csv'
-pooch.retrieve(url=url_db, known_hash=None,path=path,fname=fname_compressed)
+data = requests.get(url_db)
+with open("./Projet/data/weather.csv",'w') as output_file:
+    output_file.write(data.text)
+
+#pooch.retrieve(url=url_db, known_hash=None,path=path,fname=fname_compressed)
 df=pd.read_csv(
-     path +"/"+fname_compressed,skiprows=[0,1,2],
-     converters={"time": str, 'weather_code (wmo code)':str,'temperature_2m_max (°C)':str,'temperature_2m_min (°C)':str,'precipitation_sum (mm)':str,'wind_speed_10m_max (km/h)':str}
+     "./Projet/data/weather.csv",skiprows=[0,1,2],
+     converters={"time": str, 'weather_code (wmo code)':str,'temperature_2m_max (°C)':str,'temperature_2m_min (°C)':str,'precipitation_sum (mm)':str,'wind_speed_10m_max (km/h)':str},
+     encoding="latin-1"
      )
 ##### json des icones #####
 path_target_im=os.path.join(
@@ -33,7 +39,7 @@ with open(path_im +"/"+fname_compressed_im) as f:
      data = json.load(f)
 
 # %%
-def dl_ic(df,data,i,path, fname):
+def dl_ic(df,data,i, fname):
     '''
     Cette fonction télécharge l'icone (format png) de la météo du jour i.
     Args:
@@ -45,7 +51,10 @@ def dl_ic(df,data,i,path, fname):
     '''
     code=df[i].iloc[0]
     url=data[code]['day']['image']
-    pooch.retrieve(url,path=path,fname=fname,known_hash=None)
+    im=requests.get(url,stream=True)
+    with open("./Projet/data/"+fname,"wb") as output_image:
+         im.raw.decode_content=True
+         shutil.copyfileobj(im.raw,output_image)
 
 # %%
 df.columns=['Date','Code Météo','Température Max','Température Min','Précipitations','Vitesse Max du vent']
@@ -73,11 +82,11 @@ df2=df2.transpose()
 df=df.transpose()
 # %%
 ############ Import des images de la météo ############
-path_target_im=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),"Projet", "data", "im_j0.png"
-    )
-path_im, fname_im = os.path.split(path_target_im)
-dl_ic(df=df2,data=data,i=0,path=path_im,fname=fname_im)
+#path_target_im=os.path.join(
+#    os.path.dirname(os.path.realpath(__file__)),"Projet", "data", "im_j0.png"
+#    )
+#path_im, fname_im = os.path.split(path_target_im)
+#dl_ic(df=df2,data=data,i=0,path=path_im,fname=fname_im)
 # %%
 def temp_max(df,i,fname):
     '''
@@ -135,7 +144,6 @@ def pluie(df,i,fname):
     Args:
         df (dataframe): datframe des données météo
         i (int): indice du jour
-        path (str or path-like object): chemin où stocker l'image
         fname (str or path-like object): nom de l'image
     '''
     path_target=os.path.join(
@@ -152,7 +160,7 @@ def pluie(df,i,fname):
     )
     ax.set_axis_off()
     #plt.show
-    plt.savefig(path_target +"/"+ fname,format='svg',dpi=100)
+    plt.savefig("./Projet/data/" + fname,format='svg',dpi=100)
 #%%
 def vent(df,i,fname):
     '''
@@ -185,22 +193,22 @@ path_target_im=os.path.join(
     os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j0.png"
     )
 path_im, fname_im = os.path.split(path_target_im)
-dl_ic(df2,data,0,path=path_im,fname=fname_im)
+dl_ic(df2,data,0,fname=fname_im)
 path_target_im=os.path.join(
     os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j1.png"
     )
 path_im, fname_im = os.path.split(path_target_im)
-dl_ic(df2,data,1,path=path_im,fname=fname_im)
+dl_ic(df2,data,1,fname=fname_im)
 path_target_im=os.path.join(
     os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j2.png"
     )
 path_im, fname_im = os.path.split(path_target_im)
-dl_ic(df2,data,2,path=path_im,fname=fname_im)
+dl_ic(df2,data,2,fname=fname_im)
 path_target_im=os.path.join(
     os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j3.png"
     )
 path_im, fname_im = os.path.split(path_target_im)
-dl_ic(df2,data,3,path=path_im,fname=fname_im)
+dl_ic(df2,data,3,fname=fname_im)
 ##### Température Max #####
 temp_max(df2,0,"tempmax_j0.svg")
 temp_max(df2,1,'tempmax_j1.svg')
@@ -229,46 +237,46 @@ vent(df2,2,'vent_j3.svg')
 path_target=os.path.join(
     os.path.dirname(os.path.realpath(__file__)),'Projet', "data", "weather_data.csv"
 )
-os.remove(path_target)
+#os.remove(path_target)
 #### svg images code météo ####
 ### copie des images avant suppression ###
 ## icone 0 ##
-path_target_im=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j0.png"
-    )
-path_target1=path_target_im
-path_target2=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j0C.png"
-    )
-shutil.copyfile(path_target1,path_target2) #copie le fichier contenant l'icone météo
-os.remove(path_target_im) #supprime la première version de l'icone (on garde la copie pour l'afficher)
+#path_target_im=os.path.join(
+#    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j0.png"
+#    )
+#path_target1=path_target_im
+#path_target2=os.path.join(
+#    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j0C.png"
+#    )
+#shutil.copyfile(path_target1,path_target2) #copie le fichier contenant l'icone météo
+#os.remove(path_target_im) #supprime la première version de l'icone (on garde la copie pour l'afficher)
 ## icone 1 ##
-path_target_im=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j1.png"
-    )
-path_target1=path_target_im
-path_target2=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j1C.png"
-    )
-shutil.copyfile(path_target1,path_target2)
-os.remove(path_target_im)
+#path_target_im=os.path.join(
+#    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j1.png"
+#    )
+#path_target1=path_target_im
+#path_target2=os.path.join(
+#    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j1C.png"
+#    )
+#shutil.copyfile(path_target1,path_target2)
+#os.remove(path_target_im)
 ## icone 2 ##
-path_target_im=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j2.png"
-    )
-path_target1=path_target_im
-path_target2=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j2C.png"
-    )
-shutil.copyfile(path_target1,path_target2)
-os.remove(path_target_im)
+#path_target_im=os.path.join(
+#    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j2.png"
+#    )
+#path_target1=path_target_im
+#path_target2=os.path.join(
+#    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j2C.png"
+#    )
+#shutil.copyfile(path_target1,path_target2)
+#os.remove(path_target_im)
 ## icone 3
-path_target_im=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j3.png"
-    )
-path_target1=path_target_im
-path_target2=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j3C.png"
-    )
-shutil.copyfile(path_target1,path_target2)
-os.remove(path_target_im)
+#path_target_im=os.path.join(
+#    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j3.png"
+#    )
+#path_target1=path_target_im
+#path_target2=os.path.join(
+#    os.path.dirname(os.path.realpath(__file__)),'Projet',"data", "im_j3C.png"
+#    )
+#shutil.copyfile(path_target1,path_target2)
+#os.remove(path_target_im)
