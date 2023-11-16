@@ -50,7 +50,7 @@ moy_j3=np.mean(vent_j3)
 ##### json des icones #####
 url_im = "https://gist.githubusercontent.com/stellasphere/9490c195ed2b53c707087c8c2db4ec0c/raw/76b0cb0ef0bfd8a2ec988aa54e30ecd1b483495d/descriptions.json"
 pooch.retrieve(url=url_im, known_hash=None,path="./Projet/data",fname="im.json") #import du fichier image
-with open(path_im +"/"+fname_compressed_im) as f:
+with open("./Projet/data/im.json") as f:
      data = json.load(f)
 
 # %%
