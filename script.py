@@ -1,6 +1,7 @@
 # %%
 #import Projet
 import datetime
+import numpy as np
 from datetime import datetime, timedelta
 import matplotlib.pyplot as plt 
 import os
@@ -13,10 +14,6 @@ import requests
 #%%
 # IMPORT DES DONNEES:
 #### météo ####
-path_target=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),'Projet', "data", "weather_data.csv"
-)
-path, fname_compressed = os.path.split(path_target)
 url_db ='https://api.open-meteo.com/v1/meteofrance?latitude=43.6109&longitude=3.8763&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max&format=csv'
 data = requests.get(url_db)
 with open("./Projet/data/weather.csv",'w') as output_file:
@@ -28,14 +25,28 @@ df=pd.read_csv(
      encoding="unicode_escape"
      )
 #%%
-##### json des icones #####
-path_target_im=os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),'Projet', "data", "im.json"
+#### vent par heure ####
+url_dv='https://api.open-meteo.com/v1/meteofrance?latitude=43.6109&longitude=3.8763&hourly=wind_speed_10m&format=csv'
+data = requests.get(url_dv)
+with open("./Projet/data/weather_vent.csv",'w') as output_file:
+    output_file.write(data.text)
+dfv=pd.read_csv(
+    "./Projet/data/weather_vent.csv",skiprows=[0,1]
 )
-path_im, fname_compressed_im = os.path.split(path_target_im)
+dfv
+vent_j0=dfv['wind_speed_10m (km/h)'].iloc[0:24]#vent par heure de la 1ère journée
+vent_j1=dfv['wind_speed_10m (km/h)'].iloc[24:48]#vent par heure de la 2ème journée
+vent_j2=dfv['wind_speed_10m (km/h)'].iloc[48:72]#vent par heure de la 3ème journée
+vent_j3=dfv['wind_speed_10m (km/h)'].iloc[72:96]#vent par heure de la 4ème journée
+moy_j0=np.mean(vent_j0) #moyenne de vent pour la 1ère journée
+moy_j1=np.mean(vent_j1)
+moy_j2=np.mean(vent_j2)
+moy_j3=np.mean(vent_j3)
+#%%
+##### json des icones #####
 url_im = "https://gist.githubusercontent.com/stellasphere/9490c195ed2b53c707087c8c2db4ec0c/raw/76b0cb0ef0bfd8a2ec988aa54e30ecd1b483495d/descriptions.json"
-pooch.retrieve(url=url_im, known_hash=None,path=path_im,fname=fname_compressed_im) #import du fichier image
-with open(path_im +"/"+fname_compressed_im) as f:
+pooch.retrieve(url=url_im, known_hash=None,path="./Projet/data",fname="im.json") #import du fichier image
+with open("./Projet/data/im.json") as f:
      data = json.load(f)
 
 # %%
@@ -160,7 +171,7 @@ def vent(df,i,fname):
     ax.set_axis_off()
     plt.savefig("./Projet/data/" + fname,format='svg',dpi=100)
 # %%
-df.columns=['Date','Code Météo','Température Max','Température Min','Précipitations','Vitesse Max du vent']
+df.columns=['Date','Code Météo','Température Max','Température Min','Précipitations','Vitesse vent']
 ajd=datetime.today().strftime("%d %B %Y")#date d'aujourd'hui au bon format
 jp1=datetime.today()+timedelta(1)#date de demain
 jp1=jp1.strftime("%d %B %Y")#date de demain au bon format
@@ -172,13 +183,19 @@ df['Date'][0]=ajd #je remplace dans mon data frame les dates avec le bon format
 df['Date'][1]=jp1
 df['Date'][2]=jp2
 df['Date'][3]=jp3
+#%%
+df['Vitesse vent'][0]=str(float("{:.2f}".format(moy_j0))) #on remplace la variable "vent max" par le vent moyen en ajustant le format à 2 décimales
+df['Vitesse vent'][1]=str(float("{:.2f}".format(moy_j1)))
+df['Vitesse vent'][2]=str(float("{:.2f}".format(moy_j2)))
+df['Vitesse vent'][3]=str(float("{:.2f}".format(moy_j3)))
+
 ### Modif Température ###
 df['Température Max']+='°C'
 df['Température Min']+='°C'
 ### Modif Précipitations
 df['Précipitations']+=' mm'
 ### Modif Vent ###
-df['Vitesse Max du vent']+=' km/h'
+df['Vitesse vent']+=' km/h'
 # %%
 df2=df.drop(columns='Date')
 df2=df2.transpose()
@@ -186,7 +203,6 @@ df=df.transpose()
 # %%
 ######## "EXTRACTION" DES DONNEES DU TABLEAU ########
 ##### Code météo #####
-os.chdir("c:\\Users\\abels\\OneDrive\\Bureau\\HAX712X\\Projet_Perso")
 for i in range(4):
     dl_ic(df2,data,i,'im_j'+str(i)+'.png')
 
@@ -209,3 +225,4 @@ for i in range(4):
 ##### Vent #####
 for i in range(4):
     vent(df2,i,'vent_j'+str(i)+'.svg')
+# %%

@@ -15,6 +15,7 @@ Les deux étapes les plus compliquées pour moi auront été l'affichage des don
 
 ### Téléchargement:
 
+Les données ont été récupérées sur le site [open-météo](https://open-meteo.com/en/docs/meteofrance-api).
 Pour ce qui est du téléchargement, une première idée a été d'utiliser le package **pooch** et plus précisemment la fonction *pooch.retrieve*, mais le défaut de cette fonction était quelle ne remplaçait pas un fichier déjà éxistant et posait donc problème pour le téléchargement quotidien des données météo. Je me suis donc passé de cette fonction sauf pour le téléchargement du fichier json des icônes météo qui ne nécessite lui pas d'actualisation.
 J'ai donc préféré utilisé le package **request** déjà installé sur python, qui permet une réécriture des données.
 
