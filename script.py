@@ -73,10 +73,9 @@ def date(df,i,fname):
     Args:
         df (dataframe): datframe des données météo
         i (int): indice du jour
-        path (str or path-like object): chemin où stocker l'image
         fname (str or path-like object): nom de l'image
     '''
-    plt.ioff()
+    plt.ioff()#l'image ne s'affichera pas lors de l'appel de la fonction
     fig = plt.figure(figsize=(1,0.5),dpi=100,frameon=False)
     ax = plt.subplot()
     ax.annotate(
@@ -94,10 +93,9 @@ def temp_max(df,i,fname):
     Args:
         df (dataframe): datframe des données météo
         i (int): indice du jour
-        path (str or path-like object): chemin où stocker l'image
         fname (str or path-like object): nom de l'image
     '''
-    plt.ioff()
+    plt.ioff()#l'image ne s'affichera pas lors de l'appel de la fonction
     fig = plt.figure(figsize=(1,0.5),dpi=100,frameon=False)
     ax = plt.subplot()
     ax.annotate(
@@ -115,10 +113,9 @@ def temp_min(df,i,fname):
     Args:
         df (dataframe): datframe des données météo
         i (int): indice du jour
-        path (str or path-like object): chemin où stocker l'image
         fname (str or path-like object): nom de l'image
     '''
-    plt.ioff()
+    plt.ioff()#l'image ne s'affichera pas lors de l'appel de la fonction
     fig = plt.figure(figsize=(1,0.5),dpi=100,frameon=False)
     ax = plt.subplot()
     ax.annotate(
@@ -138,7 +135,7 @@ def pluie(df,i,fname):
         i (int): indice du jour
         fname (str or path-like object): nom de l'image
     '''
-    plt.ioff()
+    plt.ioff()#l'image ne s'affichera pas lors de l'appel de la fonction
     fig = plt.figure(figsize=(1,0.5), dpi=100,frameon=False)
     ax = plt.subplot()
     ax.annotate(
@@ -159,7 +156,7 @@ def vent(df,i,fname):
         path (str or path-like object): chemin où stocker l'image
         fname (str or path-like object): nom de l'image
     '''
-    plt.ioff()
+    plt.ioff()#l'image ne s'affichera pas lors de l'appel de la fonction
     fig = plt.figure(figsize=(1,0.5), dpi=100,frameon=False)
     ax = plt.subplot()
     ax.annotate(
@@ -184,7 +181,7 @@ df['Date'][1]=jp1
 df['Date'][2]=jp2
 df['Date'][3]=jp3
 #%%
-df['Vitesse vent'][0]=str(float("{:.2f}".format(moy_j0))) #on remplace la variable "vent max" par le vent moyen en ajustant le format à 2 décimales
+df['Vitesse vent'][0]=str(float("{:.2f}".format(moy_j0))) #je remplace la variable "vent max" par le vent moyen en ajustant le format à 2 décimales
 df['Vitesse vent'][1]=str(float("{:.2f}".format(moy_j1)))
 df['Vitesse vent'][2]=str(float("{:.2f}".format(moy_j2)))
 df['Vitesse vent'][3]=str(float("{:.2f}".format(moy_j3)))
@@ -225,4 +222,3 @@ for i in range(4):
 ##### Vent #####
 for i in range(4):
     vent(df2,i,'vent_j'+str(i)+'.svg')
-# %%

@@ -1,8 +1,0 @@
-latitude,longitude,elevation,utc_offset_seconds,timezone,timezone_abbreviation
-52.52,13.41,38.0,3600,Europe/Berlin,CET
-
-time,weather_code (wmo code),temperature_2m_max (°C),temperature_2m_min (°C),precipitation_sum (mm),wind_speed_10m_max (km/h)
-2023-11-12,51,8.7,4.8,0.50,12.9
-2023-11-13,61,7.6,1.7,4.20,21.2
-2023-11-14,51,9.7,6.5,1.80,31.7
-2023-11-15,51,9.0,3.9,1.10,30.1
