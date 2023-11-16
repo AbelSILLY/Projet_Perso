@@ -6,6 +6,7 @@ Ce site affiche la météo (plus ou moins précise) des 4 prochains jours à Mon
 # %%
 #import Projet
 import datetime
+import numpy as np
 from datetime import datetime, timedelta
 import matplotlib.pyplot as plt 
 import os
