@@ -186,6 +186,7 @@ df=df.transpose()
 # %%
 ######## "EXTRACTION" DES DONNEES DU TABLEAU ########
 ##### Code météo #####
+os.chdir("c:\\Users\\abels\\OneDrive\\Bureau\\HAX712X\\Projet_Perso")
 for i in range(4):
     dl_ic(df2,data,i,'im_j'+str(i)+'.png')
 

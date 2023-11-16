@@ -267,10 +267,10 @@ thead,th {text-align: center;}
 </head>
 <table>
 <tr>
-    <td> <image src = "./Projet/data/date_j0.png"> </image> </td>
-    <td> <image src = "./Projet/data/date_j1.png"> </image> </td>
-    <td> <image src = "./Projet/data/date_j2.png"> </image> </td>
-    <td> <image src = "./Projet/data/date_j3.png"> </image> </td>
+    <td> <image src = "./Projet/data/date_j0.svg"> </image> </td>
+    <td> <image src = "./Projet/data/date_j1.svg"> </image> </td>
+    <td> <image src = "./Projet/data/date_j2.svg"> </image> </td>
+    <td> <image src = "./Projet/data/date_j3.svg"> </image> </td>
 </tr>
 <tr>
     <td> <image src = "./Projet/data/im_j0.png"> </image> </td> 
