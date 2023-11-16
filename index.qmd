@@ -173,7 +173,7 @@ def vent(df,i,fname):
     ax.set_axis_off()
     plt.savefig("./Projet/data/" + fname,format='svg',dpi=100)
 # %%
-df.columns=['Date','Code Météo','Température Max','Température Min','Précipitations','Vitesse Max du vent']
+df.columns=['Date','Code Météo','Température Max','Température Min','Précipitations','Vitesse vent']
 ajd=datetime.today().strftime("%d %B %Y")#date d'aujourd'hui au bon format
 jp1=datetime.today()+timedelta(1)#date de demain
 jp1=jp1.strftime("%d %B %Y")#date de demain au bon format
