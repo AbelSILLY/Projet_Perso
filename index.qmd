@@ -195,7 +195,7 @@ df['Température Min']+='°C'
 ### Modif Précipitations
 df['Précipitations']+=' mm'
 ### Modif Vent ###
-df['Vitesse Max du vent']+=' km/h'
+df['Vitesse vent']+=' km/h'
 # %%
 df2=df.drop(columns='Date')
 df2=df2.transpose()
