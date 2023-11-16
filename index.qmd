@@ -99,9 +99,6 @@ def temp_max(df,i,fname):
         fname (str or path-like object): nom de l'image
     '''
     plt.ioff()
-    path_target=os.path.join(
-    os.path.realpath(__file__),"Projet" ,"data"
-    )
     fig = plt.figure(figsize=(1,0.5),dpi=100,frameon=False)
     ax = plt.subplot()
     ax.annotate(
