@@ -60,7 +60,9 @@ def dl_ic(df,data,i, fname):
         fname (str): nom du fichier image
     '''
     code=df[i].iloc[0]
-    url=data[code]['day']['image']
+    #url=data[code]['day']['image']
+    url=data[str(code)]['day']['image']
+
     im=requests.get(url,stream=True)
     with open("./Projet/data/"+fname,"wb") as output_image:
          im.raw.decode_content=True
